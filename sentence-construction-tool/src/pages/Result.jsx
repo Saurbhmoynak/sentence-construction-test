@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -15,16 +16,16 @@ const Result = () => {
       navigate("/"); // Redirect if no user answers
     } else {
       setStatus("loading"); // Set loading status
-
+  
       axios
         .get("https://json-data-ypen.onrender.com/tests")
         .then((res) => {
           console.log("API Response:", res.data);
-
+  
           // Safely extracting the questions data
           const questionData =
             res.data?.[0]?.data?.questions || res.data?.questions;
-
+  
           if (questionData) {
             setQuestions(questionData); // Set questions
             setStatus("ready"); // Set status to ready when data is fetched
@@ -38,15 +39,8 @@ const Result = () => {
           setStatus("error"); // Set error status on failure
         });
     }
-
-    // Push a new state to history to prevent going back
-    window.history.pushState(null, document.title, window.location.href);
-
-    // Listen for back button event and prevent it
-    window.onpopstate = function () {
-      window.history.pushState(null, document.title, window.location.href);
-    };
   }, [userAnswers, navigate]);
+  
 
   const compareAnswers = (userAns, correctAns) => {
     if (
