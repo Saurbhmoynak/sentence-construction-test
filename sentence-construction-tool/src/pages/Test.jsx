@@ -28,7 +28,7 @@ const Test = () => {
   // Fetch questions on mount
   useEffect(() => {
     axios
-      .get("http://localhost:4000/data")
+      .get("/api/data")
       .then((res) => {
         const questionData = res.data.questions;
         setQuestions(questionData);
