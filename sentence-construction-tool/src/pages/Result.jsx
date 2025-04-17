@@ -10,7 +10,6 @@ const Result = () => {
 
   const [questions, setQuestions] = useState([]);
   const [status, setStatus] = useState("loading");
-  const port = import.meta.env.VITE_PORT;
 
   useEffect(() => {
     if (!userAnswers) {
@@ -19,7 +18,7 @@ const Result = () => {
       setStatus("loading"); // Set loading status
   
       axios
-        .get(`${port}/tests`)
+        .get("https://json-data-ypen.onrender.com/tests")
         .then((res) => {
           console.log("API Response:", res.data);
   

@@ -14,7 +14,6 @@ const arraysEqual = (a, b) =>
   a.length === b.length && a.every((val, i) => val === b[i]);
 
 const Test = () => {
-  const port = import.meta.env.VITE_PORT;
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedWords, setSelectedWords] = useState([]);
@@ -29,7 +28,7 @@ const Test = () => {
   // Fetch questions on mount
   useEffect(() => {
     axios
-      .get(`${port}/tests`)
+      .get("https://json-data-ypen.onrender.com/tests")
       .then((res) => {
         const questionData = res.data[0].data.questions;
         setQuestions(questionData);
