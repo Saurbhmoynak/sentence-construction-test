@@ -10,36 +10,38 @@ const Result = () => {
 
   const [questions, setQuestions] = useState([]);
   const [status, setStatus] = useState("loading");
+  const port = import.meta.env.VITE_PORT;
 
   useEffect(() => {
     if (!userAnswers) {
-      navigate("/");
+      navigate("/"); // Redirect if no user answers
     } else {
+      setStatus("loading"); // Set loading status
+  
       axios
-        .get("http://localhost:4000/data")
+        .get(`${port}/tests`)
         .then((res) => {
           console.log("API Response:", res.data);
-
-          let questionData;
-          if (res.data && res.data.data && res.data.data.questions) {
-            questionData = res.data.data.questions;
-          } else if (res.data && res.data.questions) {
-            questionData = res.data.questions;
+  
+          // Safely extracting the questions data
+          const questionData =
+            res.data?.[0]?.data?.questions || res.data?.questions;
+  
+          if (questionData) {
+            setQuestions(questionData); // Set questions
+            setStatus("ready"); // Set status to ready when data is fetched
           } else {
             console.error("Unexpected API response structure:", res.data);
             setStatus("error");
-            return;
           }
-
-          setQuestions(questionData);
-          setStatus("ready");
         })
         .catch((err) => {
           console.error("Error fetching questions:", err);
-          setStatus("error");
+          setStatus("error"); // Set error status on failure
         });
     }
   }, [userAnswers, navigate]);
+  
 
   const compareAnswers = (userAns, correctAns) => {
     if (
