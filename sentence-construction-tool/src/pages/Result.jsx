@@ -16,7 +16,7 @@ const Result = () => {
       navigate("/");
     } else {
       axios
-        .get("/api/data")
+        .get("http://localhost:4000/data")
         .then((res) => {
           console.log("API Response:", res.data);
 
