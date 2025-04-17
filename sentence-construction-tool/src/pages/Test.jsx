@@ -93,7 +93,12 @@ const Test = () => {
 
     setResults(finalResults);
 
+    // ✅ Set session flag
+    sessionStorage.setItem("testCompleted", "true");
+
+    // ✅ Add replace: true
     navigate("/result", {
+      replace: true,
       state: {
         questions,
         userAnswers: finalResults.map((r) => r.userAnswer),
@@ -220,7 +225,7 @@ const Test = () => {
             onSubmit={handleSubmit}
             isSubmitted={userAnswers[currentIndex] !== undefined}
             selectedWords={selectedWords}
-            onNext={handleNext} // Pass handleNext function
+            onNext={handleNext}
           />
         </CardContent>
       </Card>
