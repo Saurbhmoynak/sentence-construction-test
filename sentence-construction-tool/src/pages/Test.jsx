@@ -182,6 +182,9 @@ const Test = () => {
             Quit
           </Button>
         </CardHeader>
+        <div className="flex justify-center">
+          <p>Select the missing words in the correct order</p>
+        </div>
 
         <CardContent className="space-y-6 mt-4">
           <div className="flex justify-between items-center mt-4">
